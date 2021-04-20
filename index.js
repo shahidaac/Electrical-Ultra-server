@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const objectId = require("mongodb").ObjectId;
 
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.9ixxx.mongodb.net/elecMan?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -18,14 +19,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 5000;
 
 client.connect((err) => {
-  const serviceCollection = client.db("elecMan").collection("elecService");
+  const serviceCollection = client.db("elecMan").collection("service");
   const reviewCollection = client.db("elecMan").collection("reviews");
   const orderCollection = client.db("elecMan").collection("orders");
   const userCollection = client.db("elecMan").collection("users");
 
   app.post("/addService", (req, res) => {
     const service = req.body;
-    serviceCollection.insertOne(elecService).then((result) => {
+    serviceCollection.insertOne(service).then((result) => {
       console.log(result);
       res.send(result.insertedCount > 0);
     });
@@ -126,6 +127,7 @@ client.connect((err) => {
 });
 
 app.get("/", (req, res) => {
+    console.log('electrical ultra online');
   res.send("Hi, Electrical Ultra ");
 });
 
