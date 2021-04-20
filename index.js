@@ -25,7 +25,7 @@ client.connect((err) => {
 
   app.post("/addService", (req, res) => {
     const service = req.body;
-    serviceCollection.insertOne(service).then((result) => {
+    serviceCollection.insertOne(elecService).then((result) => {
       console.log(result);
       res.send(result.insertedCount > 0);
     });
